@@ -61,5 +61,3 @@ COPY pyproject.toml poetry.lock ./
 RUN conda run -n $CONDA_ENV poetry install
 
 WORKDIR /workspace
-
-ENTRYPOINT ["conda", "activate", "-n", $CONDA_ENV]
