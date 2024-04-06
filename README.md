@@ -48,3 +48,13 @@
 
 Таким образом, данный подход позволит эффективно классифицировать и
 детектировать дорожные знаки на изображениях с использованием YOLOv8n модели.
+
+### Пример использования
+Обучение:
+
+`python commands.py train --dataset_path /workspace/tsd/data/data.yaml --epochs 5`
+
+Валидация:
+
+`python commands.py validate --dataset_path /workspace/tsd/data/data.yaml
+--checkpoint_path /workspace/tsd/runs/detect/train/weights/last.pt`
