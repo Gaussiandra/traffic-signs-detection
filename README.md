@@ -58,3 +58,27 @@
 
 `python commands.py validate --dataset_path /workspace/tsd/data/data.yaml
 --checkpoint_path /workspace/tsd/runs/detect/train/weights/last.pt`
+
+### Структура собранного проекта
+
+├── commands.py\
+├── data\
+│   ├── data.yaml\
+│   ├── README.dataset.txt\
+│   ├── README.roboflow.txt\
+│   ├── test\
+│   ├── train\
+│   └── valid\
+├── detector\
+│   ├── infer.py\
+│   ├── \__init__.py\
+│   ├── \__pycache__\
+│   ├── train.py\
+│   └── validate.py\
+├── Dockerfile\
+├── poetry.lock\
+├── pyproject.toml\
+├── README.md\
+├── runs\
+│   └── detect\
+└── yolov8n.pt
