@@ -71,8 +71,8 @@
 │   └── valid\
 ├── detector\
 │   ├── infer.py\
-│   ├── \__init__.py\
-│   ├── \__pycache__\
+│   ├── \_\_init__.py\
+│   ├── \_\_pycache__\
 │   ├── train.py\
 │   └── validate.py\
 ├── Dockerfile\

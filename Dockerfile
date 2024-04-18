@@ -54,7 +54,6 @@ ARG PYTHON_VERSION=3.10
 ARG CONDA_ENV=dev
 
 RUN conda create -n $CONDA_ENV python=$PYTHON_VERSION
-RUN conda activate dev
 
 # Install project dependencies
 COPY pyproject.toml poetry.lock ./

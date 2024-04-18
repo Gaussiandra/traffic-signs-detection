@@ -1,5 +1,9 @@
 __pycache__/
+
+checkpoints/*
 data/*
 runs/*
+outputs/*
+
 *.pt
 *.ipynb
