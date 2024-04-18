@@ -1,12 +1,10 @@
 import lightning.pytorch as pl
-
-from ultralytics.nn.tasks import DetectionModel
-from ultralytics.nn.tasks import attempt_load_one_weight
-from ultralytics.utils.downloads import attempt_download_asset
-from ultralytics.models.yolo.detect.train import DetectionTrainer
-
-from omegaconf.dictconfig import DictConfig
 from easydict import EasyDict
+from omegaconf.dictconfig import DictConfig
+from ultralytics.models.yolo.detect.train import DetectionTrainer
+from ultralytics.nn.tasks import DetectionModel, attempt_load_one_weight
+from ultralytics.utils.downloads import attempt_download_asset
+
 
 class Yolov8(pl.LightningModule):
     def __init__(self, cfg: DictConfig):
@@ -17,7 +15,7 @@ class Yolov8(pl.LightningModule):
 
         # model init
         self.model = DetectionModel(cfg=cfg.model.cfg, nc=cfg.model.nc)
-        attempt_download_asset(f'weights/{cfg.model.name}')
+        attempt_download_asset(f"weights/{cfg.model.name}")
         weights, ckpt = attempt_load_one_weight(f"weights/{cfg.model.name}")
         self.model.load(weights)
 
@@ -31,23 +29,35 @@ class Yolov8(pl.LightningModule):
 
     def forward(self, input):
         input = self.detection_trainer.preprocess_batch(input)
-        loss, loss_items  = self.model(input)
+        loss, loss_items = self.model(input)
 
         return loss, loss_items
 
     def training_step(self, batch, batch_idx, dalaloader_idx=0):
         loss, loss_items = self(batch)
 
-        self.log("train_loss", loss.item(), on_step=True, on_epoch=True, 
-                 prog_bar=True, batch_size=batch["img"].shape[0])
-        
+        self.log(
+            "train_loss",
+            loss.item(),
+            on_step=True,
+            on_epoch=True,
+            prog_bar=True,
+            batch_size=batch["img"].shape[0],
+        )
+
         return loss
 
     def validation_step(self, batch, batch_idx, dataloader_idx=0):
         loss, loss_items = self(batch)
 
-        self.log("val_loss", loss.item(), on_step=False, on_epoch=True, 
-                 prog_bar=True, batch_size=batch["img"].shape[0])
+        self.log(
+            "val_loss",
+            loss.item(),
+            on_step=False,
+            on_epoch=True,
+            prog_bar=True,
+            batch_size=batch["img"].shape[0],
+        )
         return loss
 
     def configure_optimizers(self):

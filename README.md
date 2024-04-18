@@ -50,35 +50,38 @@
 детектировать дорожные знаки на изображениях с использованием YOLOv8n модели.
 
 ### Пример использования
+
+_todo: Обновить инструкцию, добавить автопрокидывание в MLFLOW_TRACKING_URI
+правильного ip из links, пофиксить commands.py_
+
 Обучение:
 
 `python commands.py train --dataset_path /workspace/tsd/data/data.yaml --epochs 5`
 
 Валидация:
 
-`python commands.py validate --dataset_path /workspace/tsd/data/data.yaml
---checkpoint_path /workspace/tsd/runs/detect/train/weights/last.pt`
+`python commands.py validate --dataset_path /workspace/tsd/data/data.yaml --checkpoint_path /workspace/tsd/runs/detect/train/weights/last.pt`
 
 ### Структура собранного проекта
 
 ├── commands.py\
 ├── data\
-│   ├── data.yaml\
-│   ├── README.dataset.txt\
-│   ├── README.roboflow.txt\
-│   ├── test\
-│   ├── train\
-│   └── valid\
+│ ├── data.yaml\
+│ ├── README.dataset.txt\
+│ ├── README.roboflow.txt\
+│ ├── test\
+│ ├── train\
+│ └── valid\
 ├── detector\
-│   ├── infer.py\
-│   ├── \_\_init__.py\
-│   ├── \_\_pycache__\
-│   ├── train.py\
-│   └── validate.py\
+│ ├── infer.py\
+│ ├── \_\_init**.py\
+│ ├── \_\_pycache**\
+│ ├── train.py\
+│ └── validate.py\
 ├── Dockerfile\
 ├── poetry.lock\
 ├── pyproject.toml\
 ├── README.md\
 ├── runs\
-│   └── detect\
+│ └── detect\
 └── yolov8n.pt

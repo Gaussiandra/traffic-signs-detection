@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  mlflow-server:
+    build:
+      context: .
+      dockerfile: mlflow.dockerfile
+    container_name: mlflow_server
+    ports:
+      - "5000:5000"
+    volumes:
+      - $PWD/mlflow:/app
+
+  tsd-model:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tsd_model
+    volumes:
+      - $PWD:/workspace/tsd
+    depends_on:
+      - mlflow-server
+    links:
+      - mlflow-server
+    environment:
+      - MLFLOW_TRACKING_URI=mlflow-server
+    stdin_open: true
+    tty: true

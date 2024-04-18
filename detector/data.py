@@ -1,10 +1,9 @@
-import torch
-
 import lightning.pytorch as pl
-
-from ultralytics.models.yolo.detect.train import DetectionTrainer
-from omegaconf.dictconfig import DictConfig
+import torch
 from easydict import EasyDict
+from omegaconf.dictconfig import DictConfig
+from ultralytics.models.yolo.detect.train import DetectionTrainer
+
 
 class TrafficSigns(pl.LightningDataModule):
     def __init__(self, cfg: DictConfig):
@@ -26,7 +25,7 @@ class TrafficSigns(pl.LightningDataModule):
             shuffle=is_train,
             num_workers=self.cfg.train.dataloader_num_wokers,
             pin_memory=True,
-            collate_fn=ds.collate_fn
+            collate_fn=ds.collate_fn,
         )
 
     def train_dataloader(self):
