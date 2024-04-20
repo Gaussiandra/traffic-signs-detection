@@ -52,7 +52,7 @@
 ### Пример использования
 
 _todo: Обновить инструкцию, добавить автопрокидывание в MLFLOW_TRACKING_URI
-правильного ip из links и dvc_
+правильного ip из links_
 
 Обучение:
 
@@ -64,27 +64,27 @@ _todo: Обновить инструкцию, добавить автопрок�
 |-- Dockerfile\
 |-- README.md\
 |-- checkpoints\
-|   -- train-exp\
+| -- train-exp\
 |-- commands.py\
 |-- data\
-|   |-- README.dataset.txt\
-|   |-- README.roboflow.txt\
-|   |-- data.yaml\
-|   |-- test\
-|   |-- train\
-|   `-- valid\
+| |-- README.dataset.txt\
+| |-- README.roboflow.txt\
+| |-- data.yaml\
+| |-- test\
+| |-- train\
+| -- valid\
 |-- data.dvc\
 |-- detector\
-|   |-- \_\_init__.py\
-|   |-- \_\_pycache__\
-|   |-- configs\
-|   |-- data.py\
-|   |-- infer.py\
-|   |-- model.py\
-|   -- train.py\
+| |-- \_\_init**.py\
+| |-- \_\_pycache**\
+| |-- configs\
+| |-- data.py\
+| |-- infer.py\
+| |-- model.py\
+| -- train.py\
 |-- docker-compose.yml\
 |-- mlflow.dockerfile\
 |-- poetry.lock\
 |-- pyproject.toml\
 |-- weights\
-|   -- yolov8n.pt
+| -- yolov8n.pt
