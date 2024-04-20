@@ -4,8 +4,8 @@ import hydra
 import lightning.pytorch as pl
 from omegaconf.dictconfig import DictConfig
 
-from data import TrafficSigns
-from model import Yolov8
+from .data import TrafficSigns
+from .model import Yolov8
 
 
 @hydra.main(config_path="configs", config_name="base_config_64", version_base="1.3")

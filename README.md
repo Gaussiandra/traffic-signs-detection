@@ -52,36 +52,39 @@
 ### Пример использования
 
 _todo: Обновить инструкцию, добавить автопрокидывание в MLFLOW_TRACKING_URI
-правильного ip из links, пофиксить commands.py_
+правильного ip из links и dvc_
 
 Обучение:
 
-`python commands.py train --dataset_path /workspace/tsd/data/data.yaml --epochs 5`
-
-Валидация:
-
-`python commands.py validate --dataset_path /workspace/tsd/data/data.yaml --checkpoint_path /workspace/tsd/runs/detect/train/weights/last.pt`
+`python commands.py train detector/configs/base_config_64.yaml`
 
 ### Структура собранного проекта
 
-├── commands.py\
-├── data\
-│ ├── data.yaml\
-│ ├── README.dataset.txt\
-│ ├── README.roboflow.txt\
-│ ├── test\
-│ ├── train\
-│ └── valid\
-├── detector\
-│ ├── infer.py\
-│ ├── \_\_init**.py\
-│ ├── \_\_pycache**\
-│ ├── train.py\
-│ └── validate.py\
-├── Dockerfile\
-├── poetry.lock\
-├── pyproject.toml\
-├── README.md\
-├── runs\
-│ └── detect\
-└── yolov8n.pt
+.\
+|-- Dockerfile\
+|-- README.md\
+|-- checkpoints\
+|   -- train-exp\
+|-- commands.py\
+|-- data\
+|   |-- README.dataset.txt\
+|   |-- README.roboflow.txt\
+|   |-- data.yaml\
+|   |-- test\
+|   |-- train\
+|   `-- valid\
+|-- data.dvc\
+|-- detector\
+|   |-- \_\_init__.py\
+|   |-- \_\_pycache__\
+|   |-- configs\
+|   |-- data.py\
+|   |-- infer.py\
+|   |-- model.py\
+|   -- train.py\
+|-- docker-compose.yml\
+|-- mlflow.dockerfile\
+|-- poetry.lock\
+|-- pyproject.toml\
+|-- weights\
+|   -- yolov8n.pt

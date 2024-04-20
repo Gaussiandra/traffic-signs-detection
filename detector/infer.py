@@ -1,6 +1,6 @@
 from typing import Any
 
-from model import Yolov8
+from .model import Yolov8
 
 
 def infer(batch_to_infer: Any, checkpoint_path: str):

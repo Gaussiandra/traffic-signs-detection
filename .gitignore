@@ -5,6 +5,7 @@ data
 runs
 outputs
 mlflow
+mlflow-server
 mlruns
 weights
 
