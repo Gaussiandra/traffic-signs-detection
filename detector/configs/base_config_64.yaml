@@ -16,7 +16,7 @@ train:
   batch_size: 16
   learning_rate: 2e-5
   weight_decay: 0.01
-  num_training_steps: 1000
+  num_training_steps: 100
   accelerator: cpu
   precision: 32
   val_check_interval: 1.0
@@ -36,3 +36,4 @@ artifacts:
     monitor: val_loss
     save_top_k: 1
     every_n_epochs: 1
+  tracking_uri: http://0.0.0.0:5000

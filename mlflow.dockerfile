@@ -8,4 +8,5 @@ RUN pip install --upgrade pip && \
 CMD mlflow server \
     --backend-store-uri sqlite:////app/mlruns.db \
     # --default-artifact-root $ARTIFACT_ROOT \
-    --host 0.0.0.0
+    --host 0.0.0.0 \
+    --port 5000

@@ -8,7 +8,7 @@ from .data import TrafficSigns
 from .model import Yolov8
 
 
-@hydra.main(config_path="configs", config_name="base_config_64", version_base="1.3")
+@hydra.main(config_path="configs", version_base="1.3")
 def main(cfg: DictConfig):
     callbacks = [
         pl.callbacks.ModelCheckpoint(
@@ -24,6 +24,7 @@ def main(cfg: DictConfig):
     loggers = [
         pl.loggers.MLFlowLogger(
             experiment_name=cfg.artifacts.experiment_name,
+            tracking_uri=cfg.artifacts.tracking_uri,
         )
     ]
 
@@ -39,9 +40,9 @@ def main(cfg: DictConfig):
     )
 
     model = Yolov8(cfg)
-    dm = TrafficSigns(cfg)
+    dataset = TrafficSigns(cfg)
 
-    trainer.fit(model, datamodule=dm)
+    trainer.fit(model, datamodule=dataset)
 
 
 if __name__ == "__main__":

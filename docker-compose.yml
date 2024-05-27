@@ -6,8 +6,7 @@ services:
       context: .
       dockerfile: mlflow.dockerfile
     container_name: mlflow_server
-    ports:
-      - "5000:5000"
+    network_mode: host
     volumes:
       - $PWD/mlflow:/app
 
@@ -16,11 +15,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: tsd_model
+    network_mode: host
     volumes:
       - $PWD:/workspace/tsd
     depends_on:
-      - mlflow-server
-    links:
       - mlflow-server
     environment:
       - MLFLOW_TRACKING_URI=mlflow-server
