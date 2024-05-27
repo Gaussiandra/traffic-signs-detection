@@ -49,12 +49,13 @@ Lightning.
 ### Запуск проекта
 
 1. `git clone https://github.com/Gaussiandra/traffic-signs-detection.git`
-2. `docker-compose build`
-3. `docker-compose up -d`
-4. `docker attach tsd_model`
-5. `conda activate dev`
-6. `python commands.py train detector/configs/base_config_64.yaml`
-7. Следить за процессом обучения на localhost:5000
+2. `cd traffic-signs-detection/`
+3. `docker-compose build`
+4. `docker-compose up -d`
+5. `docker attach tsd_model`
+6. `conda activate dev`
+7. `python commands.py train detector/configs/base_config_64.yaml`
+8. Следить за процессом обучения на localhost:5000
 
 ### Пример использования
 
