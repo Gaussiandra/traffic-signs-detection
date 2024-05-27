@@ -6,6 +6,7 @@ runs
 outputs
 mlflow
 mlflow-server
+mlflow.dvc
 mlruns
 weights
 
