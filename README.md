@@ -83,8 +83,8 @@ Lightning.
 | -- valid\
 |-- data.dvc\
 |-- detector\
-| |-- \_\_init**.py\
-| |-- \_\_pycache**\
+| |-- \_\_init\_\_.py\
+| |-- \_\_pycache\_\_\
 | |-- configs\
 | |-- data.py\
 | |-- infer.py\
