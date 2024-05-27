@@ -54,8 +54,10 @@ Lightning.
 4. `docker-compose up -d`
 5. `docker attach tsd_model`
 6. `conda activate dev`
-7. `python commands.py train detector/configs/base_config_64.yaml`
-8. Следить за процессом обучения на localhost:5000
+7. `cd tsd/`
+8. `dvc pull`
+9. `python commands.py train detector/configs/base_config_64.yaml`
+10. Следить за процессом обучения на localhost:5000
 
 ### Пример использования
 
