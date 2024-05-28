@@ -14,7 +14,7 @@ def infer(cfg_path, checkpoint_path, image_path):
     cfg = omegaconf.OmegaConf.load(cfg_path)
 
     results = infer_model(
-        target_sz=(cfg.yolo_args.imgsz, cfg.yolo_args.imgsz),
+        cfg=cfg,
         checkpoint_path=checkpoint_path,
         image_path=image_path,
     )

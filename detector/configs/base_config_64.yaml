@@ -5,6 +5,8 @@ yolo_args:
 data:
   train: /workspace/tsd/data/train/images
   val: /workspace/tsd/data/valid/images
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
 
 model:
   nc: 15
@@ -16,7 +18,7 @@ train:
   batch_size: 16
   learning_rate: 2e-5
   weight_decay: 0.01
-  num_training_steps: 100
+  num_training_steps: 225
   accelerator: cpu
   precision: 32
   val_check_interval: 1.0

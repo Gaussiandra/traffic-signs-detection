@@ -1,20 +1,21 @@
 import torch
+from omegaconf.dictconfig import DictConfig
 from PIL import Image
 from torchvision import transforms
 
 from .model import Yolov8
 
 
-def infer(target_sz: tuple[int, int], checkpoint_path: str, image_path: str):
+def infer(cfg: DictConfig, checkpoint_path: str, image_path: str):
     """Provides functionality for model inference."""
 
     image = Image.open(image_path).convert("RGB")
-    resized_image = image.resize(target_sz)
+    resized_image = image.resize((cfg.yolo_args.imgsz, cfg.yolo_args.imgsz))
 
     transform = transforms.Compose(
         [
             transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            transforms.Normalize(mean=cfg.data.mean, std=cfg.data.std),
         ]
     )
     processed_image = transform(resized_image).unsqueeze(0)
