@@ -18,6 +18,5 @@ def benchmark_model(call_model, model_args, n_warmups, n_tests):
             elapsed_times.append(end - start)
 
     result = np.mean(elapsed_times)
-    print(result)
 
     return result

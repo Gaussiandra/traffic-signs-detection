@@ -1,53 +1,38 @@
-### Постанновка задачи
+### Постановка задачи
 
-Для классификации и детекции дорожных знаков на изображениях, предлагается
-использовать YOLOv8n модель, которая будет дообучаться на датасете с
-фотографиями дорожной сцены.
+Данный pet-project нацелен на реализацию детекции и распознавания дорожных знаков на изображениях.
 
 ### Используемые данные
 
 За основу взят
-[данный kaggle датасет](https://www.kaggle.com/datasets/pkdarabi/cardetection/data)
+[датасет](https://www.kaggle.com/datasets/pkdarabi/cardetection/data)
 с фотографиями дорожной сцены, координатами и типами дорожных знаков.
 
-<img src="https://github.com/Gaussiandra/traffic-signs-detection/assets/34653515/747129e7-879e-4407-a626-d8803cb67a75" width="600" />
+<img src="https://github.com/Gaussiandra/traffic-signs-detection/assets/34653515/747129e7-879e-4407-a626-d8803cb67a75" width="450" />
 
-У этого датасета есть особенности:
+Датасет содержит синтетические и реальные изображения, 15 типов дорожных знаков, а также разбиение на тренировочные, тестовые и валидационные данные. Каждое изображение в датасете имеет размер 416x416 пикселей.
 
-- Присутствуют синтетические фотографии из дорожного симулятора
-- Знаки 15 типов: ['Green Light', 'Red Light', 'Speed Limit 10', 'Speed Limit
-  100', 'Speed Limit 110', 'Speed Limit 120', 'Speed Limit 20', 'Speed Limit
-  30', 'Speed Limit 40', 'Speed Limit 50', 'Speed Limit 60', 'Speed Limit 70',
-  'Speed Limit 80', 'Speed Limit 90', 'Stop']
-- Фиксированное разбиение на тренировочные(3530 шт), тестовые(801 шт) и
-  валидационные данные(638 шт)
-- Каждая картинка имеет размер 416x416 пикселей
+### Описание подхода
 
-### Подоход к моделированию
+Были использованы такие пакеты:
+1. PyTorch Lightning для дообучения YOLOv8n с использованием встроенных аугментаций
+2. TensorRT и PyCUDA для оптимального инференса модели в FP16
+3. MLflow для логгирования экспериментов
+4. Docker, conda и poetry для создания воспроизводимой среды, управления окружениями и зависимостями
+5. DVC для возможности версионирования датасета
+6. hydra для управления конфигами
+7. pre-commit для контроля за качеством кода
+8. fire для удобного создания CLIs
 
-В проекте дообучается небольшая
-[YOLOv8n](https://github.com/ultralytics/ultralytics) с использованием
-встроенных в YOLO аугментаций. Обучение происходит с помощью фреймворка Pytorch
-Lightning.
+Todo:
+1. Реализовать квантизацию модели
+2. Добавить замеры влияния на скорость/качество квантизации и TRT инференса
+3. Добавить визуализацию ONNX графа в netron.app
+4. Добавить покрытие тестами
 
-### Инференс
 
-Схема инференса устроена таким образом:
-
-1. Загрузка тестового изображения: извлечение изображения из тестового набора
-   данных для последующей обработки.
-2. Предварительная обработка изображения:
-   1. Изменение размера изображения на 416x416 пикселей (или на значение,
-      указанное в конфиге при обучении)
-   2. Нормализация пикселей
-3. Генерация предсказаний: на выходе модели получаем предсказанные координаты и
-   классы дорожных знаков на изображении.
-
-Таким образом, данный подход позволит эффективно классифицировать и
-детектировать дорожные знаки на изображениях с использованием YOLOv8n модели.
-
-### Запуск проекта
-
+### Пример использования
+#### Подготовка окружения
 1. `git clone https://github.com/Gaussiandra/traffic-signs-detection.git`
 2. `cd traffic-signs-detection/`
 3. `docker-compose build`
@@ -56,15 +41,20 @@ Lightning.
 6. `conda activate dev`
 7. `cd tsd/`
 8. `dvc pull`
-9. `python commands.py train_model detector/configs/base_config_64.yaml`
-10. Следить за процессом обучения на localhost:5000
 
-### Пример использования
+#### Обучение
+`python commands.py train_model detector/configs/base_config_64.yaml`\
+И затем следить за обучением на localhost:5000
 
-Обучение:
 
-`python commands.py train detector/configs/base_config_64.yaml`
+#### Конвертация модели в ONNX
+`python commands.py convert_to_onnx detector/configs/base_config_64.yaml checkpoints/train-exp/epoch\=00-val_loss\=62.7809.ckpt model.onnx`
 
-Инференс:
+#### Создание TensorRT Engine из ONNX представления
+`python commands.py convert_to_trt model.onnx engine.trt`
 
-`python commands.py infer detector/configs/base_config_64.yaml checkpoints/train-exp/epoch=03-val_loss=52.6284.ckpt traffic_sign.png`
+#### Замер скорости инференса обычного PyTorch
+`python commands.py benchmark_torch detector/configs/base_config_64.yaml checkpoints/train-exp/epoch\=00-val_loss\=62.7809.ckpt your_photo.png`
+
+#### Замер скорости инференса на TensorRT
+`python commands.py benchmark_trt detector/configs/base_config_64.yaml engine.trt your_photo.png`
