@@ -39,3 +39,7 @@ artifacts:
     save_top_k: 1
     every_n_epochs: 1
   tracking_uri: http://0.0.0.0:5000
+
+inference:
+  benchmark_warmups: 50
+  benchmark_tests: 500

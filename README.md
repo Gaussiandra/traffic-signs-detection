@@ -56,7 +56,7 @@ Lightning.
 6. `conda activate dev`
 7. `cd tsd/`
 8. `dvc pull`
-9. `python commands.py train detector/configs/base_config_64.yaml`
+9. `python commands.py train_model detector/configs/base_config_64.yaml`
 10. Следить за процессом обучения на localhost:5000
 
 ### Пример использования
@@ -68,34 +68,3 @@ Lightning.
 Инференс:
 
 `python commands.py infer detector/configs/base_config_64.yaml checkpoints/train-exp/epoch=03-val_loss=52.6284.ckpt traffic_sign.png`
-
-### Структура собранного проекта
-
-.\
-|-- Dockerfile\
-|-- README.md\
-|-- checkpoints\
-| -- train-exp\
-|-- commands.py\
-|-- data\
-| |-- README.dataset.txt\
-| |-- README.roboflow.txt\
-| |-- data.yaml\
-| |-- test\
-| |-- train\
-| -- valid\
-|-- data.dvc\
-|-- detector\
-| |-- \_\_init\_\_.py\
-| |-- \_\_pycache\_\_\
-| |-- configs\
-| |-- data.py\
-| |-- infer.py\
-| |-- model.py\
-| -- train.py\
-|-- docker-compose.yml\
-|-- mlflow.dockerfile\
-|-- poetry.lock\
-|-- pyproject.toml\
-|-- weights\
-| -- yolov8n.pt

@@ -1,10 +1,10 @@
 import fire
 import omegaconf
 
-from detector import *
+from detector import benchmark, converters, model, torch_infer, train, trt_infer
 
 
-def train(cfg_path):
+def train_model(cfg_path):
     cfg = omegaconf.OmegaConf.load(cfg_path)
     train.train(cfg)
 
@@ -33,7 +33,12 @@ def benchmark_trt(cfg_path, engine_path, image_path):
     )["img"]
 
     infer_obj.load_images_to_buffer(input, infer_obj.host_input)
-    benchmark.benchmark_model(infer_obj.do_trt_inference, model_args=())
+    benchmark.benchmark_model(
+        infer_obj.do_trt_inference,
+        model_args=(),
+        n_warmups=cfg.inference.benchmark_warmups,
+        n_tests=cfg.inference.benchmark_tests,
+    )
 
 
 def convert_to_onnx(cfg_path, checkpoint_path, output_name):

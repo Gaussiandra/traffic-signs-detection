@@ -5,7 +5,7 @@ import torch
 from tqdm import tqdm
 
 
-def benchmark_model(call_model, model_args, n_warmups=50, n_tests=500):
+def benchmark_model(call_model, model_args, n_warmups, n_tests):
     elapsed_times = []
 
     for iteration in tqdm(range(n_warmups + n_tests)):

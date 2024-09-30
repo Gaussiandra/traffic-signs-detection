@@ -1,12 +1,10 @@
 import numpy as np
-import pycuda.autoinit
+import pycuda.autoinit  # noqa: F401
 import pycuda.driver as cuda
 import tensorrt as trt
 
 
 class TRTEngineInfer:
-    # Motivated by https://developer.nvidia.cn/blog/speeding-up-deep-learning-inference-using-tensorflow-onnx-and-tensorrt/#running_inference_from_the_tensorrt_engine
-
     def __init__(
         self, trt_path: str, input_tensor_name="input", output_tensor_name="output"
     ):
