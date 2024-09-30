@@ -1,6 +1,9 @@
 import lightning.pytorch as pl
+import torch
 from easydict import EasyDict
 from omegaconf.dictconfig import DictConfig
+from PIL import Image
+from torchvision import transforms
 from ultralytics.models.yolo.detect.train import DetectionTrainer
 from ultralytics.nn.tasks import DetectionModel, attempt_load_one_weight
 from ultralytics.utils.downloads import attempt_download_asset
@@ -69,3 +72,27 @@ class Yolov8(pl.LightningModule):
         )
 
         return [optimizer]
+
+    @staticmethod
+    def preprocess_input(image_path, w, h, norm_mean, norm_std):
+        image = Image.open(image_path).convert("RGB")
+        resized_image = image.resize((w, h))
+
+        transform = transforms.Compose(
+            [
+                transforms.ToTensor(),
+                transforms.Normalize(norm_mean, norm_std),
+            ]
+        )
+        processed_image = transform(resized_image).unsqueeze(0)
+
+        input_dict = {
+            "im_file": ("aboba",),
+            "img": processed_image,
+            "ori_shape": ((image.size[0], image.size[1]),),
+            "batch_idx": torch.tensor(1),
+            "cls": torch.tensor(1),
+            "bboxes": torch.tensor([[1]]),
+        }
+
+        return input_dict

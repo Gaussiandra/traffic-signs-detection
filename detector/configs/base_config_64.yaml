@@ -19,7 +19,7 @@ train:
   learning_rate: 2e-5
   weight_decay: 0.01
   num_training_steps: 225
-  accelerator: cpu
+  accelerator: cuda
   precision: 32
   val_check_interval: 1.0
   gradient_clip_val: 3.0

@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM nvidia/cuda:12.4.0-devel-ubuntu20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -57,6 +57,6 @@ RUN conda create -n $CONDA_ENV python=$PYTHON_VERSION
 
 # Install project dependencies
 COPY pyproject.toml poetry.lock ./
-RUN conda run -n $CONDA_ENV poetry install
+RUN conda run -n $CONDA_ENV poetry install --no-root
 
 WORKDIR /workspace
